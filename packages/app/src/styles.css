@@ -1,0 +1,19 @@
+:root {
+    --bui-bg: transparent !important;
+
+    .bui-Button {
+        border-radius: 20pt !important;
+    }
+}
+
+[data-theme-mode='light'] {
+    /* Light theme specific styles */
+    --bui-bg: #fff;
+    --bui-fg-primary: #000;
+}
+
+[data-theme-mode='dark'] {
+    /* Dark theme specific styles */
+    --bui-bg: #000;
+    --bui-fg-primary: #fff;
+}

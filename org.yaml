@@ -1,0 +1,35 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: drsounds
+  email: drsounds@gmail.com
+  annotations:
+    google.com/email: drsounds@gmail.com
+spec:
+  memberOf: [employees]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: spacify
+  email: alexander@spacify.se
+  annotations:
+    google.com/email: alexander@spacify.se
+spec:
+  memberOf: [employees]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: employees
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: guests
+spec:
+  type: team
+  children: []

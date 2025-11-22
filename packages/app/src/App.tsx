@@ -25,6 +25,7 @@ import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import {
   AlertDisplay,
   OAuthRequestDialog,
@@ -37,6 +38,12 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { NotificationsPage } from '@backstage/plugin-notifications';
 import { SignalsDisplay } from '@backstage/plugin-signals';
+import { BuiThemerPage } from '@backstage/plugin-mui-to-bui';
+
+import { lightTheme, darkTheme } from './themes'; // MUI themes
+import { UnifiedThemeProvider } from '@backstage/theme';
+
+import './styles.css'
 
 const app = createApp({
   apis,
@@ -57,13 +64,31 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  themes: [
+    {
+      id: 'dark',
+      title: 'Dark theme',
+      variant: 'dark',
+      Provider: ({ children }) => (
+        <UnifiedThemeProvider theme={darkTheme} children={children} />
+      ),
+    },
+  ],
   components: {
-    SignInPage: props => <SignInPage {...props} auto providers={['guest']} />,
+    SignInPage: props => (
+      <SignInPage {...props} providers={[{
+        id: 'github-auth-provider',
+        title: 'GitHub',
+        message: 'Sign in using GitHub',
+        apiRef: githubAuthApiRef
+      }]} />
+    ),
   },
 });
 
 const routes = (
   <FlatRoutes>
+    <Route path="/mui-to-bui" element={<BuiThemerPage />} />
     <Route path="/" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route

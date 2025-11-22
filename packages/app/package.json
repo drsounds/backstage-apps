@@ -28,6 +28,7 @@
     "@backstage/plugin-catalog-import": "^0.13.7",
     "@backstage/plugin-catalog-react": "^1.21.3",
     "@backstage/plugin-kubernetes": "^0.12.13",
+    "@backstage/plugin-mui-to-bui": "^0.2.1",
     "@backstage/plugin-notifications": "^0.5.11",
     "@backstage/plugin-org": "^0.6.46",
     "@backstage/plugin-permission-react": "^0.4.38",
