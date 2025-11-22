@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import {
     Button,
     Dialog,
@@ -8,7 +8,7 @@ import {
     TextField,
     makeStyles,
 } from '@material-ui/core';
-import { CreateShiftInput } from '../../api/ShiftClient';
+import { CreateShiftInput, Shift } from '../../api/ShiftClient';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -23,9 +23,10 @@ type Props = {
     open: boolean;
     onClose: () => void;
     onSubmit: (shift: CreateShiftInput) => Promise<void>;
+    shift?: Shift;
 };
 
-export const ShiftDialog = ({ open, onClose, onSubmit }: Props) => {
+export const ShiftDialog = ({ open, onClose, onSubmit, shift }: Props) => {
     const classes = useStyles();
     const [form, setForm] = useState<CreateShiftInput>({
         commitment_uri: '',
@@ -38,6 +39,25 @@ export const ShiftDialog = ({ open, onClose, onSubmit }: Props) => {
         currency: 'SEK',
         customer_uri: '',
     });
+
+    React.useEffect(() => {
+        if (shift) {
+            const { id, ...rest } = shift;
+            setForm(rest);
+        } else {
+            setForm({
+                commitment_uri: '',
+                duration_ms: 0,
+                project_uri: '',
+                worked: new Date().toISOString(),
+                user_uri: '',
+                tags: [],
+                unit_amount: 500,
+                currency: 'SEK',
+                customer_uri: '',
+            });
+        }
+    }, [shift, open]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -57,7 +77,7 @@ export const ShiftDialog = ({ open, onClose, onSubmit }: Props) => {
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-            <DialogTitle>Create Shift</DialogTitle>
+            <DialogTitle>{shift ? 'Edit Shift' : 'Create Shift'}</DialogTitle>
             <DialogContent>
                 <div className={classes.container}>
                     <TextField
@@ -125,7 +145,7 @@ export const ShiftDialog = ({ open, onClose, onSubmit }: Props) => {
                     Cancel
                 </Button>
                 <Button onClick={handleSubmit} color="primary" variant="contained">
-                    Create
+                    {shift ? 'Save' : 'Create'}
                 </Button>
             </DialogActions>
         </Dialog>

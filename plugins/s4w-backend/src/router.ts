@@ -80,5 +80,20 @@ export async function createRouter({
     res.json(await shiftService.getShift(req.params.id));
   });
 
+  router.put('/shifts/:id', async (req, res) => {
+    const parsed = shiftSchema.safeParse(req.body);
+    if (!parsed.success) {
+      throw new InputError(parsed.error.toString());
+    }
+
+    const result = await shiftService.updateShift(req.params.id, parsed.data);
+    res.json(result);
+  });
+
+  router.delete('/shifts/:id', async (req, res) => {
+    await shiftService.deleteShift(req.params.id);
+    res.status(204).end();
+  });
+
   return router;
 }

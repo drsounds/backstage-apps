@@ -14,16 +14,40 @@ import { shiftApiRef } from '../../api/ShiftClient';
 import { ShiftTable } from './ShiftTable';
 import { ShiftDialog } from './ShiftDialog';
 
+import { Shift } from '../../api/ShiftClient';
+
 export const ShiftPage = () => {
     const shiftApi = useApi(shiftApiRef);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editingShift, setEditingShift] = useState<Shift | undefined>(undefined);
 
     const { value, loading, error, retry } = useAsyncRetry(async () => {
         return await shiftApi.getShifts();
     }, []);
 
     const handleCreateShift = async (shift: any) => {
-        await shiftApi.createShift(shift);
+        if (editingShift) {
+            await shiftApi.updateShift(editingShift.id, shift);
+        } else {
+            await shiftApi.createShift(shift);
+        }
+        setIsDialogOpen(false);
+        setEditingShift(undefined);
+        retry();
+    };
+
+    const handleEditShift = (shift: Shift) => {
+        setEditingShift(shift);
+        setIsDialogOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false);
+        setEditingShift(undefined);
+    };
+
+    const handleDeleteShift = async (id: string) => {
+        await shiftApi.deleteShift(id);
         retry();
     };
 
@@ -46,11 +70,12 @@ export const ShiftPage = () => {
                         Create Shift
                     </Button>
                 </ContentHeader>
-                <ShiftTable shifts={value || []} />
+                <ShiftTable shifts={value || []} onEdit={handleEditShift} onDelete={handleDeleteShift} />
                 <ShiftDialog
                     open={isDialogOpen}
-                    onClose={() => setIsDialogOpen(false)}
+                    onClose={handleCloseDialog}
                     onSubmit={handleCreateShift}
+                    shift={editingShift}
                 />
             </Content>
         </Page>

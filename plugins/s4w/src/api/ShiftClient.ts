@@ -22,6 +22,8 @@ export type CreateShiftInput = Omit<Shift, 'id'>;
 export interface ShiftApi {
     getShifts(): Promise<Shift[]>;
     createShift(shift: CreateShiftInput): Promise<Shift>;
+    updateShift(id: string, shift: CreateShiftInput): Promise<Shift>;
+    deleteShift(id: string): Promise<void>;
     getShift(id: string): Promise<Shift>;
 }
 
@@ -69,6 +71,34 @@ export class ShiftClient implements ShiftApi {
         }
 
         return await response.json();
+    }
+
+    async updateShift(id: string, shift: CreateShiftInput): Promise<Shift> {
+        const baseUrl = await this.getBaseUrl();
+        const response = await this.fetchApi.fetch(`${baseUrl}/shifts/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(shift),
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+        return await response.json();
+    }
+
+    async deleteShift(id: string): Promise<void> {
+        const baseUrl = await this.getBaseUrl();
+        const response = await this.fetchApi.fetch(`${baseUrl}/shifts/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
     }
 
     async getShift(id: string): Promise<Shift> {

@@ -48,6 +48,33 @@ export class ShiftService {
         return newShift;
     }
 
+    async updateShift(id: string, input: CreateShiftInput): Promise<Shift> {
+        const index = this.#storedShifts.findIndex(item => item.id === id);
+        if (index === -1) {
+            throw new NotFoundError(`No shift found with id '${id}'`);
+        }
+
+        const updatedShift: Shift = {
+            ...input,
+            id,
+        };
+
+        this.#storedShifts[index] = updatedShift;
+        this.#logger.info('Updated shift', { id, user_uri: input.user_uri });
+
+        return updatedShift;
+    }
+
+    async deleteShift(id: string): Promise<void> {
+        const index = this.#storedShifts.findIndex(item => item.id === id);
+        if (index === -1) {
+            throw new NotFoundError(`No shift found with id '${id}'`);
+        }
+
+        this.#storedShifts.splice(index, 1);
+        this.#logger.info('Deleted shift', { id });
+    }
+
     async listShifts(): Promise<{ items: Shift[] }> {
         return { items: Array.from(this.#storedShifts) };
     }
