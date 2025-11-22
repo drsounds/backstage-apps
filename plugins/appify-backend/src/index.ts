@@ -1,1 +1,1 @@
-export { appifyPlugin as default } from './plugin';
+export { appifyBackendPlugin as default } from './plugin';
