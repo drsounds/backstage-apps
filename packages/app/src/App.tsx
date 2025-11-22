@@ -43,7 +43,7 @@ import { BuiThemerPage } from '@backstage/plugin-mui-to-bui';
 import { lightTheme, darkTheme } from './themes'; // MUI themes
 import { UnifiedThemeProvider } from '@backstage/theme';
 
-import './styles.css'
+import './styles.css';
 
 const app = createApp({
   apis,
@@ -65,6 +65,14 @@ const app = createApp({
     });
   },
   themes: [
+    {
+      id: 'light',
+      title: 'Light theme',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <UnifiedThemeProvider theme={lightTheme} children={children} />
+      ),
+    },
     {
       id: 'dark',
       title: 'Dark theme',

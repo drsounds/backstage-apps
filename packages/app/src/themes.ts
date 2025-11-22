@@ -23,6 +23,12 @@ export const lightTheme = createUnifiedTheme({
     components: {
         MuiTypography: {
             styleOverrides: {
+                body1: {
+                    fontWeight: 'bold',
+                },
+                body2: {
+                    fontWeight: 'bold',
+                },
                 root: {
                     fontWeight: 'bold',
                 },
@@ -34,6 +40,13 @@ export const lightTheme = createUnifiedTheme({
                     backgroundColor: '#fff',
                 }
             }
+        },
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: '#010101',
+                },
+            },
         },
         MuiList: {
             defaultProps: {
@@ -113,8 +126,13 @@ export const darkTheme = createUnifiedTheme({
         palette: {
             ...palettes.dark,
             background: {
-                default: '#000',
-                paper: '#000'
+                default: 'transparent',
+                paper: 'transparent'
+            },
+            text: {
+                default: '#aaa',
+                secondary: '#aaa',
+                primary: '#aaa',
             },
             primary: {
                 ...palettes.light.primary,
@@ -128,6 +146,12 @@ export const darkTheme = createUnifiedTheme({
     components: {
         MuiTypography: {
             styleOverrides: {
+                body1: {
+                    fontWeight: 'bold',
+                },
+                body2: {
+                    fontWeight: 'bold',
+                },
                 root: {
                     fontWeight: 'bold',
                 },
@@ -136,9 +160,16 @@ export const darkTheme = createUnifiedTheme({
         BackstageContent: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#000',
+                    backgroundColor: 'transparent',
                 }
             }
+        },
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: '#ffffff',
+                },
+            },
         },
         MuiList: {
             defaultProps: {
@@ -156,7 +187,7 @@ export const darkTheme = createUnifiedTheme({
             },
             styleOverrides: {
                 root: {
-                    backgroundColor: '#000',
+                    backgroundColor: 'transparent',
                     boxShadow: 'none !important',
                     borderRadius: 28,
                 },
@@ -165,7 +196,17 @@ export const darkTheme = createUnifiedTheme({
         BackstageSidebar: {
             styleOverrides: {
                 drawer: {
-                    background: '#111'
+                    background: 'transparent'
+                }
+            }
+        },
+        MuiSelect: {
+            styleOverrides: {
+                root: {
+                    '&.Mui-focused': {
+                        borderColor: 'white !important',
+                        borderWidth: '2px !important',
+                    }
                 }
             }
         },

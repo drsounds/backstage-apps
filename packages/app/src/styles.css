@@ -9,11 +9,12 @@
 [data-theme-mode='light'] {
     /* Light theme specific styles */
     --bui-bg: #fff;
-    --bui-fg-primary: #000;
+    --bui-fg-primary: #555;
 }
 
 [data-theme-mode='dark'] {
     /* Dark theme specific styles */
     --bui-bg: #000;
-    --bui-fg-primary: #fff;
+    /*#220;*/
+    --bui-fg-primary: #888;
 }
