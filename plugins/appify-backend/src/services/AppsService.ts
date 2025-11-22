@@ -48,6 +48,29 @@ export class AppsService {
         return newApp;
     }
 
+    async updateApp(slug: string, input: CreateAppInput): Promise<App> {
+        const index = this.#storedApps.findIndex(item => item.slug === slug);
+        if (index === -1) {
+            throw new NotFoundError(`No app found with slug '${slug}'`);
+        }
+
+        const updatedApp: App = { ...input, slug }; // Ensure slug matches ID
+        this.#storedApps[index] = updatedApp;
+        this.#logger.info('Updated app', { slug });
+
+        return updatedApp;
+    }
+
+    async deleteApp(slug: string): Promise<void> {
+        const index = this.#storedApps.findIndex(item => item.slug === slug);
+        if (index === -1) {
+            throw new NotFoundError(`No app found with slug '${slug}'`);
+        }
+
+        this.#storedApps.splice(index, 1);
+        this.#logger.info('Deleted app', { slug });
+    }
+
     async listApps(): Promise<{ items: App[] }> {
         return { items: Array.from(this.#storedApps) };
     }

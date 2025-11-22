@@ -45,5 +45,20 @@ export async function createRouter({
     res.json(await apps.getApp(req.params.slug));
   });
 
+  router.put('/apps/:slug', async (req, res) => {
+    const parsed = appSchema.safeParse(req.body);
+    if (!parsed.success) {
+      throw new InputError(parsed.error.toString());
+    }
+
+    const result = await apps.updateApp(req.params.slug, parsed.data);
+    res.json(result);
+  });
+
+  router.delete('/apps/:slug', async (req, res) => {
+    await apps.deleteApp(req.params.slug);
+    res.status(204).end();
+  });
+
   return router;
 }
