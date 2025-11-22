@@ -8,6 +8,9 @@ export const lightTheme = createUnifiedTheme({
     ...createBaseThemeOptions({
         palette: {
             ...palettes.light,
+            text: {
+                default: '#282828',
+            },
             background: {
                 default: '#fff',
             },

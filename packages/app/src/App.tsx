@@ -42,6 +42,7 @@ import { BuiThemerPage } from '@backstage/plugin-mui-to-bui';
 
 import { lightTheme, darkTheme } from './themes'; // MUI themes
 import { UnifiedThemeProvider } from '@backstage/theme';
+import { S4WPage } from '@internal/backstage-plugin-s4w';
 
 import './styles.css';
 
@@ -130,6 +131,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
+    <Route path="/s4w" element={<S4WPage />} />
   </FlatRoutes>
 );
 
