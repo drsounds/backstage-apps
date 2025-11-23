@@ -15,6 +15,8 @@ interface StitchAppProps {
     onMessage?: (action: string, data: any) => void;
     onFetchAppById?: (appId: string) => Promise<StitchApplication>;
     style?: React.CSSProperties;
+    app?: StitchApplication;
+    params?: string[];
     [key: string]: any;
 }
 
@@ -26,14 +28,16 @@ export function StitchApp({
     defaultQuery = {},
     onMessage,
     onFetchAppById,
-    style
+    style,
+    app: propApp,
+    params: propParams,
 }: StitchAppProps) {
     const [loaded, setLoaded] = useState(0)
-    const [app, setApp] = useState<StitchApplication | null>(null)
+    const [app, setApp] = useState<StitchApplication | null>(propApp || null)
     const iframeRef = useRef<HTMLIFrameElement>(null)
     const parts = uri.split(/:/)
     const appId = parts[2]
-    const params = parts.slice(3)
+    const params = propParams || parts.slice(3)
 
     let loadingInterval: any = null
 
@@ -62,11 +66,15 @@ export function StitchApp({
         }, 200)
     }, [])
     useEffect(() => {
+        if (propApp) {
+            setApp(propApp);
+            return;
+        }
         onFetchAppById?.(appId).then(appResult => {
             setApp(appResult);
 
         })
-    }, [uri])
+    }, [uri, propApp])
     useEffect(() => {
         if (!iframeRef?.current) return;
         iframeRef.current.contentWindow?.postMessage({
