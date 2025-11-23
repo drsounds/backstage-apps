@@ -67,4 +67,5 @@ backend.add(import('@backstage/plugin-signals-backend'));
 
 backend.add(import('@internal/backstage-plugin-s4w-backend'));
 backend.add(import('@internal/backstage-plugin-appify-backend'));
+backend.add(import('@internal/backstage-plugin-chord-backend'));
 backend.start();

@@ -46,6 +46,7 @@
     "@backstage/plugin-signals-backend": "^0.3.10",
     "@backstage/plugin-techdocs-backend": "^2.1.2",
     "@internal/backstage-plugin-appify-backend": "workspace:^",
+    "@internal/backstage-plugin-chord-backend": "workspace:^",
     "@internal/backstage-plugin-s4w-backend": "workspace:^",
     "app": "link:../app",
     "better-sqlite3": "^12.0.0",
