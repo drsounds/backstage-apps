@@ -1,0 +1,23 @@
+.progressBar {
+  --progress-bar-background-color: currentColor;
+  position: relative;
+  display: flex;
+  left: 0;
+  top: 0;
+  height: 15pt;
+  border-radius: 20pt;
+  overflow: hidden;
+  border: 1pt solid var(--progress-bar-background-color);
+  width: 300pt;
+}
+
+.progressBarThumb {
+  --progress-bar-thumb-background-color: currentColor;
+  position: absolute;
+  transition: width 0.5s;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--progress-bar-thumb-background-color);
+}
