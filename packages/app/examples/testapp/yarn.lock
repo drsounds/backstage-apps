@@ -313,6 +313,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"backstage-stitch-app-bridge@file:../../../stitch-app-bridge::locator=example-stitch-app%40workspace%3A.":
+  version: 1.0.0
+  resolution: "backstage-stitch-app-bridge@file:../../../stitch-app-bridge#../../../stitch-app-bridge::hash=c16289&locator=example-stitch-app%40workspace%3A."
+  checksum: 10c0/6b666830ace43d81523013651c8650bb2600938abf4b79d50d86ceb26745301f46e218f0ff5599b848635aab32f09c59cb66975797001f1274af137373ba652a
+  languageName: node
+  linkType: hard
+
 "caniuse-lite@npm:^1.0.30001579":
   version: 1.0.30001756
   resolution: "caniuse-lite@npm:1.0.30001756"
@@ -338,6 +345,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-stitch-app@workspace:."
   dependencies:
+    backstage-stitch-app-bridge: "file:../../../stitch-app-bridge"
     next: "npm:latest"
     react: "npm:latest"
     react-dom: "npm:latest"

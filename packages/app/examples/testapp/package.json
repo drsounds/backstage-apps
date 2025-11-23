@@ -8,6 +8,7 @@
         "start": "next start"
     },
     "dependencies": {
+        "backstage-stitch-app-bridge": "file:../../../stitch-app-bridge",
         "next": "latest",
         "react": "latest",
         "react-dom": "latest"

@@ -5,10 +5,9 @@
   "static/chunks/d919e_next_dist_shared_lib_3505a02f._.js",
   "static/chunks/d919e_next_dist_client_ae6c0cd3._.js",
   "static/chunks/d919e_next_dist_7d5485d2._.js",
-  "static/chunks/d919e_next_router_09fe3321.js",
   "static/chunks/d919e_react-dom_53cbbe5a._.js",
-  "static/chunks/d919e_23e50ad2._.js",
-  "static/chunks/[root-of-the-server]__b09cde16._.js"
+  "static/chunks/d919e_6b7f5b57._.js",
+  "static/chunks/[root-of-the-server]__2f8a3229._.js"
 ],
     source: "entry"
 });

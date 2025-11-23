@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAsync } from 'react-use';
 import { useApi } from '@backstage/core-plugin-api';
 import { appsApiRef } from '../../api/AppsClient';
@@ -8,6 +8,7 @@ import { Progress, Content, Page } from '@backstage/core-components';
 
 export const AppPage = () => {
     const { slug, '*': rest } = useParams();
+    const navigate = useNavigate();
     const appsApi = useApi(appsApiRef);
     const params = rest ? rest.split('/') : [];
 
@@ -40,6 +41,12 @@ export const AppPage = () => {
         );
     }
 
+    const handleNavigate = useCallback((pathParts: string[]) => {
+        // Construct new path: /app/<slug>/<pathParts>
+        const newPath = `/app/${slug}/${pathParts.join('/')}`;
+        navigate(newPath);
+    }, [slug, navigate]);
+
     return (
         <Page themeId="tool">
             <Content noPadding>
@@ -51,6 +58,7 @@ export const AppPage = () => {
                     }}
                     params={params}
                     uri={`stitch:app:${app.slug}:${params.join(':')}`}
+                    onNavigate={handleNavigate}
                 />
             </Content>
         </Page>

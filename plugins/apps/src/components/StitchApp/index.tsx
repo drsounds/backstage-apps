@@ -50,6 +50,14 @@ export function StitchApp({
         if (action === 'load') {
             handleLoad(data.value ?? 120)
         }
+        if (action === 'navigate') {
+            if (onNavigate instanceof Function) {
+                // data.path comes from the child, e.g. /foo
+                // We need to split it into parts
+                const path = data.path.startsWith('/') ? data.path.substring(1) : data.path;
+                onNavigate(path.split('/'));
+            }
+        }
     }
 
     const handleLoad = (value: number) => {
