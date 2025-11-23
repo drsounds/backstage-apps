@@ -80,7 +80,7 @@ export function StitchApp({
         iframeRef.current.contentWindow?.postMessage({
             params
         }, origin ?? '*')
-    }, [iframeRef.current])
+    }, [iframeRef.current, params, origin])
     useEffect(() => {
         if (!iframeRef.current) return;
         if (typeof window !== 'undefined') {
