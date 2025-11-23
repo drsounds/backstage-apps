@@ -46,7 +46,7 @@ import { S4WPage } from '@internal/backstage-plugin-s4w';
 import { AppsPage, AppPage } from '@internal/backstage-plugin-apps';
 import { ChordPage } from '@internal/backstage-plugin-chord';
 
-import './styles.css';
+//import './styles.css';
 
 const app = createApp({
     apis,
@@ -66,9 +66,9 @@ const app = createApp({
         bind(orgPlugin.externalRoutes, {
             catalogIndex: catalogPlugin.routes.catalogIndex,
         });
-    },
+    },/*
     themes: [
-        {
+       {
             id: 'light',
             title: 'Light theme',
             variant: 'light',
@@ -83,8 +83,8 @@ const app = createApp({
             Provider: ({ children }) => (
                 <UnifiedThemeProvider theme={darkTheme} children={children} />
             ),
-        },
-    ],
+        }
+    ],*/
     components: {
         SignInPage: props => (
             <SignInPage {...props} providers={[{
