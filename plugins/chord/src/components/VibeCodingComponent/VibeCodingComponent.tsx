@@ -12,7 +12,8 @@ export const VibeCodingComponent = () => {
 
             const { preview_url, urls } = event.data;
 
-            if (preview_url && urls) {
+            if (preview_url) {
+                debugger
                 console.log('Received Vibe App:', { preview_url, urls });
 
                 // Create an app for the preview URL
