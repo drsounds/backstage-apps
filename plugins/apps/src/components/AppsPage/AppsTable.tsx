@@ -1,13 +1,82 @@
 import { Table, TableColumn } from '@backstage/core-components';
 import { App } from '../../api/AppsClient';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 type Props = {
     apps: App[];
     onEdit: (app: App) => void;
     onDelete: (slug: string) => void;
+};
+
+const AppsTableActions = ({ app, onEdit, onDelete }: { app: App; onEdit: (app: App) => void; onDelete: (slug: string) => void }) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleEdit = () => {
+        handleClose();
+        onEdit(app);
+    };
+
+    const handleDelete = () => {
+        handleClose();
+        onDelete(app.slug);
+    };
+
+    return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+                variant="outlined"
+                color="primary"
+                size="small"
+                component={Link}
+                to={`/app/${app.slug}`}
+                style={{ marginRight: 8 }}
+            >
+                Open app
+            </Button>
+            <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+            >
+                <MoreVertIcon />
+            </IconButton>
+            <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={handleEdit}>
+                    <ListItemIcon>
+                        <EditIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Edit" />
+                </MenuItem>
+                <MenuItem onClick={handleDelete}>
+                    <ListItemIcon>
+                        <DeleteIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Delete" />
+                </MenuItem>
+            </Menu>
+        </div>
+    );
 };
 
 export const AppsTable = ({ apps, onEdit, onDelete }: Props) => {
@@ -21,14 +90,7 @@ export const AppsTable = ({ apps, onEdit, onDelete }: Props) => {
             title: 'Actions',
             field: 'actions',
             render: (row: App) => (
-                <>
-                    <IconButton onClick={() => onEdit(row)} aria-label="edit">
-                        <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => onDelete(row.slug)} aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton>
-                </>
+                <AppsTableActions app={row} onEdit={onEdit} onDelete={onDelete} />
             ),
         },
     ];
