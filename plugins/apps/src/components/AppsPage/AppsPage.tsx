@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Content,
     ContentHeader,
@@ -72,9 +73,18 @@ export const AppsPage = () => {
                     <Button
                         variant="contained"
                         color="primary"
+                        component={Link}
+                        to="/chord"
+                        style={{ marginRight: '16px' }}
+                    >
+                        Create new app with AI
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="primary"
                         onClick={handleCreateApp}
                     >
-                        Create App
+                        Add external application
                     </Button>
                 </ContentHeader>
                 <AppsTable
