@@ -3,6 +3,14 @@ import { Page, Header, Content, SupportButton } from '@backstage/core-components
 import { useApi } from '@backstage/core-plugin-api';
 import { appsApiRef } from '@internal/backstage-plugin-apps';
 
+async function createRepoFromPayload(payload: any) {
+    await fetch('/api/ai-generator/repo', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+    });
+}
+
 export const VibeCodingComponent = () => {
     const appsApi = useApi(appsApiRef);
 
@@ -10,7 +18,7 @@ export const VibeCodingComponent = () => {
         const handleMessage = async (event: MessageEvent) => {
             // Security check: In production, verify event.origin
 
-            const { preview_url, urls } = event.data;
+            const { preview_url, urls, files } = event.data;
 
             if (preview_url) {
                 debugger
@@ -35,6 +43,12 @@ export const VibeCodingComponent = () => {
                         header_image_url: '',
                         category_uri: 'spacify:category:utility',
                         website_url: preview_url
+                    });
+                    createRepoFromPayload({
+                        files,
+                        name: 'Vibe App ${slug',
+                        preview_url,
+                        description: 'Vibe app'
                     });
                     alert(`Created app: ${slug}`);
                 } catch (e) {
