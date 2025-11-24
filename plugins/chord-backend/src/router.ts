@@ -1,16 +1,22 @@
-import { HttpAuthService } from '@backstage/backend-plugin-api';
+import { HttpAuthService, DiscoveryService } from '@backstage/backend-plugin-api';
 import { InputError } from '@backstage/errors';
 import { z } from 'zod';
 import express from 'express';
 import Router from 'express-promise-router';
 import { todoListServiceRef } from './services/TodoListService';
+import { ScaffolderClient } from '@backstage/plugin-scaffolder-common';
+import { ScmIntegrations } from '@backstage/integration';
 
 export async function createRouter({
   httpAuth,
   todoList,
+  discovery,
+  scmIntegrations,
 }: {
   httpAuth: HttpAuthService;
   todoList: typeof todoListServiceRef.T;
+  discovery: DiscoveryService;
+  scmIntegrations: ScmIntegrations;
 }): Promise<express.Router> {
   const router = Router();
   router.use(express.json());
@@ -47,5 +53,24 @@ export async function createRouter({
     res.json(await todoList.getTodo({ id: req.params.id }));
   });
 
+  router.post('/repo', async (req, res) => {
+    const { name, description, files } = req.body;
+
+    const scaffolder = new ScaffolderClient({
+      discoveryApi: discovery,
+      fetchApi: { fetch: fetch as any },
+      scmIntegrationsApi: scmIntegrations,
+    });
+
+    const result = await scaffolder.scaffold({
+      templateRef: 'default:template/ai-template',
+      values: {
+        name,
+        description,
+        files,
+      },
+    });
+    res.json({ ok: true, taskId: result.taskId });
+  })
   return router;
 }

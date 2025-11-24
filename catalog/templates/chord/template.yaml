@@ -1,0 +1,65 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: ai-template
+  title: AI Generated App
+  description: Generated via vibe-coding iframe editor
+spec:
+  owner: dev-team
+  type: service
+
+  parameters:
+    - title: App
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        files:
+          type: object
+        owner:
+          type: string
+
+  steps:
+    - id: write-files
+      name: Write code files
+      action: fs:write
+      input:
+        files: ${{ parameters.files }}
+
+    - id: publish
+      name: Publish to Github
+      action: publish:github
+      input:
+        repoUrl: github.com?owner=${{ parameters.owner }}&repo=${{ parameters.name }}
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+
+    - id: add-ci
+      name: Add GitHub Actions pipeline
+      action: fs:write
+      input:
+        files:
+          .github/workflows/build.yml:
+            content: |
+              name: Build
+              on: [push]
+              jobs:
+                build:
+                  runs-on: ubuntu-latest
+                  steps:
+                    - uses: actions/checkout@v3
+                    - name: Install
+                      run: npm install
+                    - name: Build
+                      run: npm run build
+  output:
+    links:
+      - title: Open repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in Backstage
+        url: ${{ steps.register.output.entityRef }}

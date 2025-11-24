@@ -10,6 +10,8 @@ import { todoListServiceRef } from './services/TodoListService';
  *
  * @public
  */
+import { ScmIntegrations } from '@backstage/integration';
+
 export const chordPlugin = createBackendPlugin({
   pluginId: 'chord',
   register(env) {
@@ -18,12 +20,17 @@ export const chordPlugin = createBackendPlugin({
         httpAuth: coreServices.httpAuth,
         httpRouter: coreServices.httpRouter,
         todoList: todoListServiceRef,
+        discovery: coreServices.discovery,
+        config: coreServices.rootConfig,
       },
-      async init({ httpAuth, httpRouter, todoList }) {
+      async init({ httpAuth, httpRouter, todoList, discovery, config }) {
+        const scmIntegrations = ScmIntegrations.fromConfig(config);
         httpRouter.use(
           await createRouter({
             httpAuth,
             todoList,
+            discovery,
+            scmIntegrations,
           }),
         );
       },

@@ -42,6 +42,8 @@ integrations:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
     #   token: ${GHE_TOKEN}
+      apps:
+        - $include: github-app-backstage-spacify-credentials.yaml
 
 proxy:
   ### Example for how to add a proxy endpoint for the frontend.
@@ -84,7 +86,7 @@ catalog:
 
     # Local example organizational data
     - type: file
-      target: ../../examples/org.yaml
+      target: ./org.yaml
       rules:
         - allow: [User, Group]
 
@@ -97,6 +99,19 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+  providers:
+    githubOrg:
+      - id: github
+        githubUrl: https://github.com
+        orgs: ['Buddhalow']
+        schedule:
+          initialDelay: { seconds: 30 }
+          frequency: { hours: 1 }
+          timeout: { minutes: 50 }
+        pageSizes:
+          teams: 25
+          teamMembers: 50
+          organizationMembers: 50
 
 kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options

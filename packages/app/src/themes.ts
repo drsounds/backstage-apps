@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
     createUnifiedTheme,
     createBaseThemeOptions,
@@ -85,7 +86,7 @@ export const lightTheme = createUnifiedTheme({
                 },
                 header: {
                     backgroundImage: 'none',
-                    background: 'white',
+                    background: '#fff',
                     color: '#111',
                     boxShadow: 'none !important',
                 }
@@ -98,11 +99,11 @@ export const lightTheme = createUnifiedTheme({
             },
             styleOverrides: {
                 outlined: {
-                    borderColor: 'black !important'
+                    borderColor: '#000 !important'
                 },
                 root: {
                     '&:focus': {
-                        outline: '2pt solid black',
+                        outline: '2pt solid #000',
                         outlineOffset: '2pt',
                     },
                     textTransform: 'none !important',
@@ -207,7 +208,7 @@ export const darkTheme = createUnifiedTheme({
             styleOverrides: {
                 root: {
                     '&.Mui-focused': {
-                        borderColor: 'white !important',
+                        borderColor: '#fff !important',
                         borderWidth: '2px !important',
                     }
                 }
@@ -217,7 +218,7 @@ export const darkTheme = createUnifiedTheme({
             styleOverrides: {
                 focused: {
                     '& fieldset': {
-                        borderColor: 'white !important',
+                        borderColor: '#fff !important',
                         borderWidth: '2px !important',
                     }
                 }
@@ -230,7 +231,7 @@ export const darkTheme = createUnifiedTheme({
                 },
                 inputRoot: {
                     '> fieldset': {
-                        borderColor: 'white !important',
+                        borderColor: '#fff !important',
                     }
                 }
             }
@@ -248,7 +249,7 @@ export const darkTheme = createUnifiedTheme({
                 },
                 header: {
                     backgroundImage: 'none',
-                    background: '#000',
+                    background: 'transparent',
                     color: '#eeeeee',
                     boxShadow: 'none !important',
                 }
@@ -262,7 +263,7 @@ export const darkTheme = createUnifiedTheme({
             styleOverrides: {
                 root: {
                     '&:focus': {
-                        outline: '2pt solid white',
+                        outline: '2pt solid #fff',
                         outlineOffset: '2pt',
                     },
                     '&:active': {
@@ -281,11 +282,11 @@ export const darkTheme = createUnifiedTheme({
             },
             styleOverrides: {
                 outlined: {
-                    borderColor: 'white !important'
+                    borderColor: '#fff !important'
                 },
                 root: {
                     '&:focus': {
-                        outline: '2pt solid white',
+                        outline: '2pt solid #fff',
                         outlineOffset: '2pt',
                     },
                     textTransform: 'none !important',

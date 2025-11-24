@@ -66,9 +66,9 @@ const app = createApp({
         bind(orgPlugin.externalRoutes, {
             catalogIndex: catalogPlugin.routes.catalogIndex,
         });
-    },/*
+    },
     themes: [
-       {
+        {
             id: 'light',
             title: 'Light theme',
             variant: 'light',
@@ -84,7 +84,7 @@ const app = createApp({
                 <UnifiedThemeProvider theme={darkTheme} children={children} />
             ),
         }
-    ],*/
+    ],
     components: {
         SignInPage: props => (
             <SignInPage {...props} providers={[{

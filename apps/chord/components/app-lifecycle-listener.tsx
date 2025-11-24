@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useSandboxStore } from '@/app/state'
 
 export function AppLifecycleListener() {
-    const { url, urlUUID } = useSandboxStore()
+    const { url, urlUUID, generatedFiles } = useSandboxStore()
 
     useEffect(() => {
         if (url && urlUUID) {
@@ -13,12 +13,13 @@ export function AppLifecycleListener() {
                     action: 'app_created',
                     name: 'App',
                     preview_url: url,
+                    files: generatedFiles,
                     url: window.location.href,
                 },
                 '*'
             )
         }
-    }, [url, urlUUID])
+    }, [url, urlUUID, generatedFiles])
 
     return null
 }

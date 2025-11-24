@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
 
 import { LoadingScreen } from '../LoadingScreen';
@@ -41,7 +42,7 @@ export function StitchApp({
 
     let loadingInterval: any = null
 
-    const [query, setQuery] = useState(defaultQuery)
+    const [query, _] = useState(defaultQuery)
 
     const handleMessage = (action: string, data: any) => {
         if (onMessage instanceof Function) {
