@@ -17,3 +17,5 @@ To start the app, run:
 yarn install
 yarn start
 ```
+
+[See it in action here](https://youtube.com/live/nMOR26lgdFA?feature=share)
