@@ -8,7 +8,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-app.config.production.yaml
+app-config.production.yaml
 
 # Coverage directory generated when running tests with coverage
 coverage
